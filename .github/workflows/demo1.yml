@@ -2,7 +2,16 @@ name: Events Demo 1
 on: 
   pull_request:
     types: opened
+    branches:
+      - 'main'
   workflow_dispatch:
+  push:
+    branches:
+      - 'main' #only push to main branch triggers this workflow
+      - 'dev1-*' #pushes to any branch that starts with dev1- triggers this workflow
+      - 'qa/**' #pushes to any sub branch to qa triggers this workflow. Ex. qa/qa1, qa1/qa1/env, etc.
+    paths-ignore:
+      - 'github/workflows/*'
 jobs:
   deploy:
     runs-on: ubuntu-latest
